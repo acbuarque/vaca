@@ -23,6 +23,9 @@ steps:
     image: alpine
     commands:
       - echo "DEPLOY TO PRODUCTION"
+      - echo ${DRONE_BUILD_PARENT}
+      - echo ${DRONE_BUILD}
+      - echo ${DRONE_DEPLOY_TO}
 
 trigger:
   event:
