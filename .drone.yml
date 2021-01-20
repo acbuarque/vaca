@@ -1,0 +1,69 @@
+---
+kind: pipeline
+type: docker
+name: test
+
+steps:
+  - name: testing
+    image: alpine
+    commands: 
+      - echo "oi"
+trigger:
+  event:
+    - push
+    - pull_request
+
+---
+kind: pipeline
+type: docker
+name: production
+
+steps:
+  - name: sending_to_prod
+    image: alpine
+    commands:
+      - echo "DEPLOY TO PRODUCTION"
+
+trigger:
+  event:
+    - promote
+    - push
+    - pull_request
+  branches:
+    - production
+  target:
+    - production
+---
+kind: pipeline
+type: docker
+name: stagin
+
+steps:
+  - name: sending_to_stage
+    image: alpine
+    commands:
+      - echo "DEPLOY TO stage"
+
+trigger:
+  event:
+    - promote
+    - push
+    - pull_request
+  branches:
+    - stage
+  target:
+    - stage
+---
+kind: pipeline
+type: docker
+name: tag-changes
+
+trigger:
+  event:
+    - tag
+
+steps:
+  - name: on-tags-changes
+    image: alpine
+    commands:
+      - echo "tags changes"
