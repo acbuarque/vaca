@@ -28,7 +28,7 @@ steps:
       - echo "we're deploying to ${DRONE_DEPLOY_TO}"
       - >- 
         PREVIOUS_MASTER=$(git rev-list -n 1 ${DRONE_DEPLOY_TO})
-        echo "PREVIOUS MASTER $PREVIOUS_MASTER"
+        echo "PREVIOUS MASTER [ $PREVIOUS_MASTER ]"
 
 trigger:
   event:
