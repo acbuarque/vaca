@@ -23,9 +23,11 @@ steps:
     image: alpine
     commands:
       - echo "DEPLOY TO PRODUCTION"
-      - echo ${DRONE_BUILD_PARENT}
-      - echo ${DRONE_BUILD}
-      - echo ${DRONE_DEPLOY_TO}
+      - echo "parent build ${DRONE_BUILD_PARENT}"
+      - echo "we're deploying to ${DRONE_DEPLOY_TO}"
+      - >- 
+        PREVIOUS_MASTER=$(git rev-list -n 1 ${DRONE_DEPLOY_TO})
+        echo "PREVIOUS MASTER $PREVIOUS_MASTER"
 
 trigger:
   event:
