@@ -26,7 +26,7 @@ steps:
       - echo "DEPLOY TO PRODUCTION"
       - echo "parent build ${DRONE_BUILD_PARENT}"
       - echo "we're deploying to ${DRONE_DEPLOY_TO}"
-      - echo "current branch $(git branch)"
+      - echo "current branch [ $(git branch) ]"
       - >- 
         echo "current branch $(git branch)"
         PREVIOUS_MASTER=$(git rev-list -n 1 ${DRONE_DEPLOY_TO})
