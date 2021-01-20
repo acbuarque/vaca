@@ -22,6 +22,7 @@ steps:
   - name: sending_to_prod
     image: alpine
     commands:
+      - apk add --no-cache git
       - echo "DEPLOY TO PRODUCTION"
       - echo "parent build ${DRONE_BUILD_PARENT}"
       - echo "we're deploying to ${DRONE_DEPLOY_TO}"
