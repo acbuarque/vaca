@@ -108,6 +108,7 @@ steps:
       - >-
         echo ${DRONE_BUILD_STATUS}
         until ${DRONE_BUILD_STATUS} != "success"
+        do
           echo "not equeal"
         done
         echo "LETS DO IT"
