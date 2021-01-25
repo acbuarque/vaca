@@ -95,6 +95,7 @@ steps:
     image: alpine
     commands:
       - echo "B"
+      - sleep 20
 ---
 kind: pipeline
 type: docker
@@ -106,9 +107,10 @@ steps:
     commands:
       - >-
         echo ${DRONE_BUILD_STATUS}
-        until ${DRONE_BUILD_STATUS} == "success"
+        until ${DRONE_BUILD_STATUS} != "success"
           echo "not equeal"
         done
+        echo "LETS DO IT"
       
       
 deepends_on:
