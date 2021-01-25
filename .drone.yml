@@ -104,7 +104,12 @@ steps:
   - name: tagging stuff
     image: alpine
     commands:
-      - echo "tagging"
+      - >-
+        echo ${DRONE_BUILD_STATUS}
+        until ${DRONE_BUILD_STATUS} == "success"
+          echo "not equeal"
+        done
+      
       
 deepends_on:
   - PREF*
