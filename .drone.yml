@@ -75,3 +75,37 @@ steps:
     image: alpine
     commands:
       - echo "tags changes"
+---
+kind: pipeline
+type: docker
+name: util pipeline A
+
+steps:
+  - name: PREF a
+    image: alpine
+    commands:
+      - echo "A"
+---
+kind: pipeline
+type: docker
+name: util pipeline B
+
+steps:
+  - name: PREF b
+    image: alpine
+    commands:
+      - echo "B"
+---
+kind: pipeline
+type: docker
+name: tag pipeline
+
+steps:
+  - name: tagging stuff
+    image: alpine
+    commands:
+      - echo "tagging"
+      
+deepends_on:
+  - PREF*
+  
