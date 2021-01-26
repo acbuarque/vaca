@@ -111,17 +111,17 @@ type: kubernetes
 name: tagging promotion environment
 
 steps:
-  frontend:
+  - frontend:
     image: node
     group: build # denotes parallelism
     commands: npm install
 
-  backend:
+  - backend:
     image: golang
     group: build  # denotes parallelism
     command: [ go build, go test ]
 
-  deploy:
+  - deploy:
     image: docker
     repo: drone/drone
 
@@ -152,8 +152,11 @@ steps:
     
 trigger:
   event:
-    - promote
-  target:
-    - production
+    #- promote
+    - push
+  branch:
+    - master
+  #target:
+    #- production
 
   
