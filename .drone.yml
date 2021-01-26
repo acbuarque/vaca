@@ -114,16 +114,14 @@ steps:
   - frontend:
     image: node
     group: build # denotes parallelism
-    commands: npm install
+    commands:
+      - echo "node build"
 
   - backend:
     image: golang
     group: build  # denotes parallelism
-    command: [ go build, go test ]
-
-  - deploy:
-    image: docker
-    repo: drone/drone
+    command:
+      - echo "go build" 
 
 # build:
 #   test_example_1:
