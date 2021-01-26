@@ -14,99 +14,99 @@ trigger:
     - pull_request
 
 ---
-kind: pipeline
-type: docker
-name: production
+# kind: pipeline
+# type: docker
+# name: production
 
-steps:
-  - name: sending_to_prod
-    image: alpine
-    commands:
-      - apk add --no-cache git
-      - echo "DEPLOY TO PRODUCTION"
-      - echo "parent build ${DRONE_BUILD_PARENT}"
-      - echo "we're deploying to ${DRONE_DEPLOY_TO}"
-      - echo "current branch [ $(git branch) ]"
-      - >- 
-        git checkout $DRONE_DEPLOY_TO
-        PREVIOUS_MASTER=$(git rev-list -n 1 ${DRONE_DEPLOY_TO})
-        echo "PREVIOUS MASTER [ $PREVIOUS_MASTER ]"
+# steps:
+#   - name: sending_to_prod
+#     image: alpine
+#     commands:
+#       - apk add --no-cache git
+#       - echo "DEPLOY TO PRODUCTION"
+#       - echo "parent build ${DRONE_BUILD_PARENT}"
+#       - echo "we're deploying to ${DRONE_DEPLOY_TO}"
+#       - echo "current branch [ $(git branch) ]"
+#       - >- 
+#         git checkout $DRONE_DEPLOY_TO
+#         PREVIOUS_MASTER=$(git rev-list -n 1 ${DRONE_DEPLOY_TO})
+#         echo "PREVIOUS MASTER [ $PREVIOUS_MASTER ]"
 
-trigger:
-  event:
-    - promote
-    - push
-    - pull_request
-  branches:
-    - production
-  target:
-    - production
----
-kind: pipeline
-type: docker
-name: stagin
+# trigger:
+#   event:
+#     - promote
+#     - push
+#     - pull_request
+#   branches:
+#     - production
+#   target:
+#     - production
+# ---
+# kind: pipeline
+# type: docker
+# name: stagin
 
-steps:
-  - name: sending_to_stage
-    image: alpine
-    commands:
-      - echo "DEPLOY TO stage"
+# steps:
+#   - name: sending_to_stage
+#     image: alpine
+#     commands:
+#       - echo "DEPLOY TO stage"
 
-trigger:
-  event:
-    - promote
-    - push
-    - pull_request
-  branches:
-    - stage
-  target:
-    - stage
----
-kind: pipeline
-type: docker
-name: tag-changes
+# trigger:
+#   event:
+#     - promote
+#     - push
+#     - pull_request
+#   branches:
+#     - stage
+#   target:
+#     - stage
+# ---
+# kind: pipeline
+# type: docker
+# name: tag-changes
 
-trigger:
-  event:
-    - tag
+# trigger:
+#   event:
+#     - tag
 
-steps:
-  - name: on-tags-changes
-    image: alpine
-    commands:
-      - echo "tags changes"
----
-kind: pipeline
-type: docker
-name: util pipeline A
+# steps:
+#   - name: on-tags-changes
+#     image: alpine
+#     commands:
+#       - echo "tags changes"
+# ---
+# kind: pipeline
+# type: docker
+# name: util pipeline A
 
-steps:
-  - name: PREF a
-    image: alpine
-    commands:
-      - echo "A"
----
-kind: pipeline
-type: docker
-name: util pipeline B
+# steps:
+#   - name: PREF a
+#     image: alpine
+#     commands:
+#       - echo "A"
+# ---
+# kind: pipeline
+# type: docker
+# name: util pipeline B
 
-steps:
-  - name: PREF b
-    image: alpine
-    commands:
-      - echo "B"
-      - sleep 9
----
-kind: pipeline
-type: docker
-name: tag pipeline
+# steps:
+#   - name: PREF b
+#     image: alpine
+#     commands:
+#       - echo "B"
+#       - sleep 9
+# ---
+# kind: pipeline
+# type: docker
+# name: tag pipeline
 
-steps:
-  - name: tagging stuff
-    image: animal505/ffff
-    pull: always
-    settings:
-      DRONE_BUILD_STATUS: ${DRONE_BUILD_STATUS}
+# steps:
+#   - name: tagging stuff
+#     image: animal505/ffff
+#     pull: always
+#     settings:
+#       DRONE_BUILD_STATUS: ${DRONE_BUILD_STATUS}
 ---
 kind: pipeline
 type: kubernetes
@@ -136,6 +136,11 @@ deploy:
     image: alpine
     commands:
     - echo "tagging"
-
+    
+trigger:
+  event:
+    - promote
+  target:
+    - production
 
   
