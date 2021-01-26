@@ -110,30 +110,45 @@ kind: pipeline
 type: kubernetes
 name: tagging promotion environment
 
-build:
-  test_example_1:
-    commands:
-      - echo "Hello World"
+pipeline:
+  frontend:
+    image: node
+    group: build # denotes parallelism
+    commands: npm install
 
-  test_example_2:
-    commands:
-    - echo "World Hello"
+  backend:
+    image: golang
+    group: build  # denotes parallelism
+    command: [ go build, go test ]
 
-  test_example_3:
-    commands:
-    - echo "still behind build, running in parallel with test jobs above"
+  deploy:
+    image: docker
+    repo: drone/drone
 
-  build_nothing:
-    deps: [test_example1, test_example_2, test_example_3]
-    commands:
-    - echo "I'm only executed after succeeded tests"
+# build:
+#   test_example_1:
+#     commands:
+#       - echo "Hello World"
 
-deploy:
-  # some gce deployment plugin
-  lets_do_it:
-    image: alpine
-    commands:
-    - echo "tagging"
+#   test_example_2:
+#     commands:
+#     - echo "World Hello"
+
+#   test_example_3:
+#     commands:
+#     - echo "still behind build, running in parallel with test jobs above"
+
+#   build_nothing:
+#     deps: [test_example1, test_example_2, test_example_3]
+#     commands:
+#     - echo "I'm only executed after succeeded tests"
+
+# deploy:
+#   # some gce deployment plugin
+#   lets_do_it:
+#     image: alpine
+#     commands:
+#     - echo "tagging"
     
 trigger:
   event:
