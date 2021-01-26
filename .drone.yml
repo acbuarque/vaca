@@ -152,8 +152,6 @@ trigger:
   event:
     #- promote
     - push
-  branch:
-    - master
   #target:
     #- production
 
