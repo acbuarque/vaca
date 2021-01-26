@@ -110,7 +110,7 @@ kind: pipeline
 type: kubernetes
 name: tagging promotion environment
 
-pipeline:
+steps:
   frontend:
     image: node
     group: build # denotes parallelism
