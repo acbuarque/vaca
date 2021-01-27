@@ -8,6 +8,7 @@ steps:
     image: alpine
     commands: 
       - echo "oi"
+      - git tag -f -a vaca -m "hehehehe"
 trigger:
   event:
     - push
