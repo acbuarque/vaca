@@ -112,48 +112,17 @@ type: kubernetes
 name: tagging promotion environment
 
 steps:
-  - frontend:
-    image: node
-    group: build # denotes parallelism
-    commands:
-      - echo "node build"
-
-  - backend:
-    image: golang
-    group: build  # denotes parallelism
+  - name: doing stuff
+    image: alpine/git
     command:
-      - echo "go build" 
+      - git fetch origin "${DRONE_BRANCH}"
+      - git checkout -B "${DRONE_BRANCH}" "origin/${DRONE_BRANCH}"
+      - git tag -f -a "${DRONE_DEPLOY_TO}_test" -m "creating new tag for environment ${DRONE_DEPLOY_TO}"
 
-# build:
-#   test_example_1:
-#     commands:
-#       - echo "Hello World"
-
-#   test_example_2:
-#     commands:
-#     - echo "World Hello"
-
-#   test_example_3:
-#     commands:
-#     - echo "still behind build, running in parallel with test jobs above"
-
-#   build_nothing:
-#     deps: [test_example1, test_example_2, test_example_3]
-#     commands:
-#     - echo "I'm only executed after succeeded tests"
-
-# deploy:
-#   # some gce deployment plugin
-#   lets_do_it:
-#     image: alpine
-#     commands:
-#     - echo "tagging"
-    
 trigger:
   event:
-    #- promote
-    - push
-  #target:
-    #- production
+    - promote
+  target:
+    - production
 
   
