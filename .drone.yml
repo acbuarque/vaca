@@ -108,21 +108,39 @@ trigger:
 #       DRONE_BUILD_STATUS: ${DRONE_BUILD_STATUS}
 ---
 kind: pipeline
+name: "tagging promotion environment"
 type: kubernetes
-name: tagging promotion environment
-
+node_selector:
+  component: ci-runners 
 steps:
-  - name: doing stuff
+  - name: Log
+    image: alpine
+    commands:
+      - echo "branch ${DRONE_BRANCH}"
+      - echo "tagging promotion environment [ ${DRONE_DEPLOY_TO} ]"
+  - name: fetch and checkout branch
     image: alpine/git
-    command:
+    commands:
       - git fetch origin "${DRONE_BRANCH}"
       - git checkout -B "${DRONE_BRANCH}" "origin/${DRONE_BRANCH}"
+  - name: tag current branch and push
+    image: alpine/git
+    commands:
       - git tag -f -a "${DRONE_DEPLOY_TO}_test" -m "creating new tag for environment ${DRONE_DEPLOY_TO}"
+    environment:
+      CICD_BOT_TOKEN:
+        from_secret: CICD_BOT_TOKEN
+      GIT_AUTHOR_EMAIL: sysadmins+gitlab-iac-cicd-bot@postclick.com
+      GIT_AUTHOR_NAME: "IaC CI/CD Bot"
+      GIT_COMMITTER_EMAIL: sysadmins+gitlab-iac-cicd-bot@postclick.com
+      GIT_COMMITTER_NAME: "IaC CI/CD Bot"
 
 trigger:
+  # branch:
+  #   - master
   event:
     - promote
+  #   - pull_request
   target:
     - production
-
   
