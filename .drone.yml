@@ -129,6 +129,7 @@ trigger:
     - master
   event:
    # - promote
+     - push
      - pull_request
 #   target:
 #     - production
