@@ -125,8 +125,8 @@ steps:
 
 
 trigger:
-  branch:
-    - master
+#   branch:
+#     - master
   event:
    # - promote
      - push
