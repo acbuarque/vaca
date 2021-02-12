@@ -10,7 +10,7 @@ steps:
       - echo "oi"
       - git tag -f -a vaca -m "hehehehe"
   - name: lets
-    image: animal505/iha
+    image: animal505/iha:node
     pull: always
     commands:
       - echo '[1,2,3]' | jq 'length'
