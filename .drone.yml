@@ -9,6 +9,12 @@ steps:
     commands: 
       - echo "oi"
       - git tag -f -a vaca -m "hehehehe"
+  - name: lets
+    image: animal505/iha
+    commands:
+      - PACKAGES_TO_PROMOTE=$(lerna ls --all --json --include-dependents --since $${LAST_PROMOTED_SHA})
+      - echo $${PACKAGES_TO_PROMOTE}
+      - echo $${PACKAGES_TO_PROMOTE} | jq 'length'  
 trigger:
   event:
     - push
