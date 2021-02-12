@@ -11,6 +11,7 @@ steps:
       - git tag -f -a vaca -m "hehehehe"
   - name: lets
     image: animal505/iha
+    pull: always
     commands:
       - PACKAGES_TO_PROMOTE=$(lerna ls --all --json --include-dependents --since $${LAST_PROMOTED_SHA})
       - echo $${PACKAGES_TO_PROMOTE}
