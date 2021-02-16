@@ -8,7 +8,7 @@ steps:
     image: alpine
     pull: always
     commands:
-      - |-
+      - >-
         list=$(cat bla.txt)
         for p in $${list}; do
           echo "current p: $p"
