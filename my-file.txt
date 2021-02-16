@@ -1,0 +1,2 @@
+drone-convert-service
+drone-plugin-promotion-handler
