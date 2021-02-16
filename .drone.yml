@@ -10,13 +10,19 @@ steps:
       - echo "oi"
       - git tag -f -a vaca -m "hehehehe"
   - name: lets
-    image: animal505/iha:node
+    image: alpine
     pull: always
     commands:
-      - echo '[1,2,3]' | jq 'length'
-      - PACKAGES_TO_PROMOTE=$(lerna ls --all --json --include-dependents --since $${LAST_PROMOTED_SHA})
-      - echo $${PACKAGES_TO_PROMOTE}
-      - echo $${PACKAGES_TO_PROMOTE} | jq 'length'  
+      - |-
+        list=$(cat bla.txt)
+        for p in $${list}; do
+          echo "current p: $p"
+          sanitized_package_name=$${p#@*/}
+          echo "sanitized_package_name $${sanitized_package_name}"
+          is_package_stage_only=$(cat my-file.txt | grep -c $${sanitized_package_name})
+          if [[ $${is_package_stage_only} -ne 0 ]]; then
+            continue
+          fi
 trigger:
   event:
     - push
@@ -114,31 +120,4 @@ trigger:
 #     pull: always
 #     settings:
 #       DRONE_BUILD_STATUS: ${DRONE_BUILD_STATUS}
----
-kind: pipeline
-name: "tagging promotion environment"
-type: kubernetes
-node_selector:
-  component: ci-runners 
-steps:
-   - name: getting files to promote
-     image: animal505/iha
-     commands:
-      - LAST_PROMOTED_SHA=$(cat .last-promoted-sha)
-      - echo $${LAST_PROMOTED_SHA}
-      - npm i lerna -g
-      - PACKAGES_TO_PROMOTE=$(lerna ls --all --json --include-dependents --since $${LAST_PROMOTED_SHA})
-      - echo $${PACKAGES_TO_PROMOTE}
-      - echo $${PACKAGES_TO_PROMOTE} | jq 'length'  
 
-
-trigger:
-#   branch:
-#     - master
-  event:
-   # - promote
-     - push
-     - pull_request
-#   target:
-#     - production
-  
