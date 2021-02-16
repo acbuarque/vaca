@@ -23,6 +23,7 @@ steps:
           if [[ $${is_package_stage_only} -ne 0 ]]; then
             continue
           fi
+        done
 trigger:
   event:
     - push
