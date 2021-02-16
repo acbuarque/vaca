@@ -8,7 +8,7 @@ steps:
     image: alpine
     pull: always
     commands:
-      - /bin/bash run.sh
+      - /bin/sh run.sh
 trigger:
   event:
     - push
