@@ -2,6 +2,8 @@
 
 set -v
 
+set -e
+
 echo "hi"
 
 if [[ -z "$PLUGIN_PACKAGES_TO_PROMOTE_FILE_PATH" ]]; then
@@ -11,5 +13,9 @@ else
 	export PACKAGES_TO_PROMOTE=$(cat $PACKAGES_TO_PROMOTE_FILE_PATH)
 fi
 
-echo $PACKAGES_TO_PROMOTE
+ls
+
+cat $PACKAGES_TO_PROMOTE_FILE_PATH
+
+echo [ $PACKAGES_TO_PROMOTE ]
 
