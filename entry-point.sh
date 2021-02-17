@@ -1,7 +1,5 @@
 #!/bin/sh
 
-set -e
-
 set -x
 
 PLUGIN_DEBUG=true

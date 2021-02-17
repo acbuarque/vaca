@@ -1,2 +1,3 @@
 drone-convert-service
+workspace
 drone-plugin-promotion-handler
