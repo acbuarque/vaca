@@ -2,8 +2,6 @@
 
 set -v
 
-ls $PWD
-
 echo "hi"
 
 #if [[ -z "$PLUGIN_PACKAGES_TO_PROMOTE_FILE_PATH" ]]; then
