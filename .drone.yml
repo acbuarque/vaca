@@ -11,6 +11,7 @@ steps:
       - /bin/sh run.sh 
   - name: using plugin
     image: animal505/piru
+    pull: always
     settings:
       packages_to_promote_file_path: my-file.txt
 
