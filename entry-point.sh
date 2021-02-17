@@ -2,6 +2,8 @@
 
 set -e
 
+set -x
+
 PLUGIN_DEBUG=true
 
 if [[ -z "$PLUGIN_PACKAGES_TO_PROMOTE_FILE_PATH" ]]; then
