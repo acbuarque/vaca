@@ -13,6 +13,22 @@ trigger:
   event:
     - push
     - pull_request
+---
+kind: pipeline
+type: kubernetes
+name: using plusing
+steps:
+  - name: using plugin
+    image: animal505/piru
+    settings:
+      packages_to_promote_file_path: my-file.txt
+
+trigger:
+  event:
+    - push
+    - pull_request
+    
+
 # kind: pipeline
 # type: docker
 # name: production
