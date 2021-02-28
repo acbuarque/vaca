@@ -1,6 +1,6 @@
 kind: pipeline
 name: validating
-type: kubernets
+type: kubernetes
 clone:
   disable: false
 node_selector:
