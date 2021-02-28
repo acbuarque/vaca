@@ -48,6 +48,9 @@ trigger:
 kind: pipeline
 name: saving point
 type: kubernetes
+depends_on:
+  - pre-prod
+  - prod
 steps:
   - name: log
     image: alpine
