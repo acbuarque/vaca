@@ -1,8 +1,10 @@
 kind: pipeline
 name: validating
-type: docker
+type: kubernets
 clone:
   disable: false
+node_selector:
+  component: ci-runners
 steps:
   - name: validating
     image: alpine
@@ -17,9 +19,11 @@ trigger:
 ---
 kind: pipeline
 name: prod
-type: docker
+type: kubernetes
 depends_on:
   - validating
+node_selector:
+  component: ci-runners
 steps:
   - name: prod log
     image: alpine
@@ -33,9 +37,11 @@ trigger:
 ---
 kind: pipeline
 name: pre-prod
-type: docker
+type: kubernetes
 depends_on:
   - validating
+node_selector:
+  component: ci-runners
 steps:
   - name: pre-prod log
     image: alpine
@@ -49,10 +55,12 @@ trigger:
 ---
 kind: pipeline
 name: saving point
-type: docker
+type: kubernetes
 depends_on:
   - pre-prod
   - prod
+node_selector:
+  component: ci-runners
 steps:
   - name: log
     image: alpine
