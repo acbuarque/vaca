@@ -6,14 +6,9 @@ steps:
     image: alpine
     commands:
       - echo "talkey moral"
-target:
+trigger:
   event:
-    include:
-      - promote
-    exclude:
-      - pull_request
-      - push
-      - cron
+    - promote
   target:
     - prod
     - pre-prod
