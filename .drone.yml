@@ -1,25 +1,25 @@
-#kind: pipeline
-#name: validating
-#type: kubernetes
-#clone:
-#  disable: false
-#steps:
-#  - name: validating
-#    image: alpine
-#    commands:
-#      - echo "talkey moral"
-#trigger:
-#  event:
-#    - promote
-#  target:
-#    - prod
-#    - pre-prod
-#---
+kind: pipeline
+name: validating
+type: kubernetes
+clone:
+  disable: false
+steps:
+  - name: validating
+    image: alpine
+    commands:
+      - echo "talkey moral"
+trigger:
+  event:
+    - promote
+  target:
+    - prod
+    - pre-prod
+---
 kind: pipeline
 name: prod
 type: docker
-#depends_on:
-#  - validating
+depends_on:
+  - validating
 steps:
   - name: prod log
     image: alpine
@@ -34,8 +34,8 @@ trigger:
 kind: pipeline
 name: pre-prod
 type: docker
-#depends_on:
-#  - validating
+depends_on:
+  - validating
 steps:
   - name: pre-prod log
     image: alpine
