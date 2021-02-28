@@ -34,8 +34,8 @@ trigger:
 kind: pipeline
 name: pre-prod
 type: kubernetes
-depends_on:
-  - validating
+#depends_on:
+#  - validating
 steps:
   - name: pre-prod log
     image: alpine
