@@ -8,7 +8,12 @@ steps:
       - echo "talkey moral"
 target:
   event:
-    - promote
+    include:
+      - promote
+    exclude:
+      - pull_request
+      - push
+      - cron
   target:
     - prod
     - pre-prod
