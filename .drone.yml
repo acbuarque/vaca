@@ -1,6 +1,8 @@
 kind: pipeline
 name: validating
 type: kubernetes
+clone:
+  disable: false
 steps:
   - name: validating
     image: alpine
