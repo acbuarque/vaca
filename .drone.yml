@@ -1,3 +1,64 @@
+kind: pipeline
+name: validating
+type: kubernetes
+steps:
+  - name: validating
+    image: alpine
+    commands:
+      - echo "talkey moral"
+target:
+  event:
+    - promote
+  target:
+    - prod
+    - pre-prod
+---
+kind: pipeline
+name: prod
+type: kubernetes
+depends_on:
+  - validating
+steps:
+  - name: prod log
+    image: alpine
+    commands:
+      - echo "prod"
+trigger:
+  event:
+    - promote
+  target:
+    - prod
+---
+kind: pipeline
+name: pre-prod
+type: kubernetes
+depends_on:
+  - validating
+steps:
+  - name: pre-prod log
+    image: alpine
+    commands:
+      - echo "pre-prod"
+trigger:
+  event:
+    - promote
+  target:
+    - pre-prod
+---
+kind: pipeline
+name: saving point
+type: kubernetes
+steps:
+  - name: log
+    image: alpine
+    commands:
+      - echo "hi lorena"
+trigger:
+  event:
+    - promote
+  target:
+    - pre-prod
+    - prod
 ---
 kind: pipeline
 type: docker
