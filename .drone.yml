@@ -1,20 +1,20 @@
-kind: pipeline
-name: validating
-type: kubernetes
-clone:
-  disable: false
-steps:
-  - name: validating
-    image: alpine
-    commands:
-      - echo "talkey moral"
-trigger:
-  event:
-    - promote
-  target:
-    - prod
-    - pre-prod
----
+#kind: pipeline
+#name: validating
+#type: kubernetes
+#clone:
+#  disable: false
+#steps:
+#  - name: validating
+#    image: alpine
+#    commands:
+#      - echo "talkey moral"
+#trigger:
+#  event:
+#    - promote
+#  target:
+#    - prod
+#    - pre-prod
+#---
 kind: pipeline
 name: prod
 type: kubernetes
