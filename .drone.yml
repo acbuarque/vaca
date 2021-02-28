@@ -18,8 +18,8 @@
 kind: pipeline
 name: prod
 type: kubernetes
-depends_on:
-  - validating
+#depends_on:
+#  - validating
 steps:
   - name: prod log
     image: alpine
