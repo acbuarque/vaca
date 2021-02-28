@@ -17,7 +17,7 @@
 #---
 kind: pipeline
 name: prod
-type: kubernetes
+type: docker
 #depends_on:
 #  - validating
 steps:
@@ -33,7 +33,7 @@ trigger:
 ---
 kind: pipeline
 name: pre-prod
-type: kubernetes
+type: docker
 #depends_on:
 #  - validating
 steps:
@@ -49,7 +49,7 @@ trigger:
 ---
 kind: pipeline
 name: saving point
-type: kubernetes
+type: docker
 depends_on:
   - pre-prod
   - prod
