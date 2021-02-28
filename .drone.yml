@@ -1,6 +1,6 @@
 kind: pipeline
 name: validating
-type: kubernetes
+type: docker
 clone:
   disable: false
 steps:
