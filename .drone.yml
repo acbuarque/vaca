@@ -22,6 +22,10 @@ steps:
     image: alpine
     commands:
       - echo "talkey moral"
+  - name: lets
+    image: alpine/git
+    commands:
+      - git push origin HEAD:prod
 trigger:
   event:
     - promote
