@@ -1,5 +1,5 @@
 kind: pipeline
-type: docker
+type: kubernetes
 name: xablau
 steps:
   - name: ihaa
@@ -8,7 +8,6 @@ steps:
       - echo "hello!"
 trigger:
   event:
-    - push
     - promote
 ---
 kind: pipeline
