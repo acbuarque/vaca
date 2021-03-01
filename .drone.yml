@@ -1,4 +1,17 @@
 kind: pipeline
+type: kubernetes
+name: xablau
+steps:
+  - name: ihaa
+    image: alpine
+    commands:
+      - echo "hello!"
+trigger:
+  event:
+    - push
+    - promote
+---
+kind: pipeline
 name: validating
 type: docker 
 clone:
